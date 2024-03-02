@@ -1,5 +1,5 @@
 "use client";
-import { Button, Container, Typography } from "@material-ui/core";
+import { Button, Container, Typography } from "@mui/material";
 import { useSession, signIn, signOut } from "next-auth/react";
 import Head from "next/head";
 import Todos from "~/components/Todos";
