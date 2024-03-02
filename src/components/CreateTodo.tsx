@@ -1,9 +1,11 @@
 import { Button, TextField } from "@mui/material";
 import { useState } from "react";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import { todoInput } from "~/types";
 import { Todo } from "~/types";
 import { api } from "~/app/utils/api";
+import "react-toastify/dist/ReactToastify.css";
+
 const CreateTodo = () => {
   const [newTodo, setNewTodo] = useState("");
 
@@ -51,59 +53,74 @@ const CreateTodo = () => {
   });
 
   return (
-    <div>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          const result = todoInput.safeParse(newTodo);
+    <>
+      <div>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            const result = todoInput.safeParse(newTodo);
 
-          if (!result.success) {
-            toast.error(result.error.format()._errors.join("\n"));
-            return;
-          }
+            if (!result.success) {
+              toast.error(result.error.format()._errors.join("\n"));
+              return;
+            }
 
-          mutate(newTodo);
-        }}
-        style={{ display: "flex", gap: "8px" }}
-      >
-        <TextField
-          variant="outlined"
-          fullWidth
-          size="small"
-          placeholder="New Todo..."
-          id="new-todo"
-          name="new-todo"
-          value={newTodo}
-          onChange={(e) => setNewTodo(e.target.value)}
-          sx={{
-            "& .MuiOutlinedInput-root": {
-              "& fieldset": {
-                borderColor: "gray.300",
-              },
-              "&:hover fieldset": {
-                borderColor: "blue.500",
-              },
-              "&.Mui-focused fieldset": {
-                borderColor: "blue.500",
-                borderWidth: 2,
-              },
-            },
+            mutate(newTodo);
           }}
-        />
-        <Button
-          type="submit"
-          variant="contained"
-          color="primary"
-          sx={{
-            "&:hover": {
-              backgroundColor: "blue.800",
-            },
-          }}
+          style={{ display: "flex", gap: "8px" }}
         >
-          Create
-        </Button>
-      </form>
-    </div>
+          <TextField
+            variant="outlined"
+            fullWidth
+            size="small"
+            placeholder="New Todo..."
+            id="new-todo"
+            name="new-todo"
+            value={newTodo}
+            onChange={(e) => setNewTodo(e.target.value)}
+            sx={{
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderColor: "gray.300",
+                },
+                "&:hover fieldset": {
+                  borderColor: "blue.500",
+                },
+                "&.Mui-focused fieldset": {
+                  borderColor: "blue.500",
+                  borderWidth: 2,
+                },
+              },
+            }}
+          />
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            sx={{
+              "&:hover": {
+                backgroundColor: "blue.800",
+              },
+            }}
+          >
+            Create
+          </Button>
+        </form>
+      </div>
+      {/* toast container */}
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
+    </>
   );
 };
 

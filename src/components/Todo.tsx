@@ -1,7 +1,8 @@
 import { Button, Checkbox } from "@mui/material";
 import { api } from "~/app/utils/api";
 import { Todo } from "~/types";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 type TodoProps = {
   todo: Todo;
@@ -89,52 +90,56 @@ export default function Todo({ todo }: Readonly<TodoProps>) {
   });
 
   return (
-    <div
-      style={{
-        display: "flex",
-        gap: "2rem",
-        alignItems: "center",
-        justifyContent: "space-between",
-      }}
-    >
-      <div style={{ display: "flex", gap: "2rem", alignItems: "center" }}>
-        <Checkbox
-          style={{
-            cursor: "pointer",
-            width: "1.25rem",
-            height: "1.25rem",
-            border: "1px solid #CBD5E0",
-            borderRadius: "0.25rem",
-            backgroundColor: "#F7FAFC",
-          }}
-          name="done"
-          id={id}
-          checked={done}
-          onChange={(e) => {
-            doneMutation({ id, done: e.target.checked });
-          }}
-        />
-        <label
-          htmlFor={id}
-          style={{
-            cursor: "pointer",
-            textDecoration: done ? "line-through" : "none",
-          }}
-        >
-          {text}
-        </label>
-      </div>
-      <Button
+    <>
+      <div
         style={{
-          color: "white",
-          backgroundColor: "#1E40AF",
-        }}
-        onClick={() => {
-          deleteMutation(id);
+          display: "flex",
+          gap: "2rem",
+          alignItems: "center",
+          justifyContent: "space-between",
         }}
       >
-        Delete
-      </Button>
-    </div>
+        <div style={{ display: "flex", gap: "2rem", alignItems: "center" }}>
+          <Checkbox
+            style={{
+              cursor: "pointer",
+              width: "1.25rem",
+              height: "1.25rem",
+              border: "1px solid #CBD5E0",
+              borderRadius: "0.25rem",
+              backgroundColor: "#F7FAFC",
+            }}
+            name="done"
+            id={id}
+            checked={done}
+            onChange={(e) => {
+              doneMutation({ id, done: e.target.checked });
+            }}
+          />
+          <label
+            htmlFor={id}
+            style={{
+              cursor: "pointer",
+              textDecoration: done ? "line-through" : "none",
+            }}
+          >
+            {text}
+          </label>
+        </div>
+        <Button
+          style={{
+            color: "white",
+            backgroundColor: "#1E40AF",
+          }}
+          onClick={() => {
+            deleteMutation(id);
+          }}
+        >
+          Delete
+        </Button>
+      </div>
+      {/* toast container */}
+      <ToastContainer position="top-center" autoClose={5000} theme="dark" />
+    </>
   );
 }
