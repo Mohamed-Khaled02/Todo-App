@@ -7,7 +7,6 @@ import {
 import { type Adapter } from "next-auth/adapters";
 import EmailProvider from "next-auth/providers/email";
 
-import { env } from "~/env";
 import { db } from "~/server/db";
 
 /**
@@ -24,11 +23,6 @@ declare module "next-auth" {
       // role: UserRole;
     } & DefaultSession["user"];
   }
-
-  // interface User {
-  //   // ...other properties
-  //   // role: UserRole;
-  // }
 }
 
 /**
