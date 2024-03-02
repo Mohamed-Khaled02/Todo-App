@@ -3,7 +3,7 @@ import { Button, Container, Typography } from "@mui/material";
 import { useSession, signIn, signOut } from "next-auth/react";
 import Head from "next/head";
 import Todos from "~/components/Todos";
-import CreateTodo from "./_components/CreateTodo";
+import CreateTodo from "../components/CreateTodo";
 
 export default function Home() {
   const { data: sessionData } = useSession();
