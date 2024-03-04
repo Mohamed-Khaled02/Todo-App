@@ -54,7 +54,7 @@ export const authOptions: NextAuthOptions = {
         },
       },
 
-      from: process.env.EMAIL_FROM || "test@localhost.com",
+      from: process.env.EMAIL_FROM ?? "test@localhost.com",
 
       ...(process.env.NODE_ENV !== "production"
         ? {
